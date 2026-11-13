@@ -25,8 +25,8 @@ import "./style.css";
 const pics = {
   hero: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1800&q=85",
 
-  coconut:"/public/Mercado Libre.jpg",
-  
+  coconut:"/Mercado Libre.jpg",
+
   nursery:
     "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1000&q=85",
   field:
@@ -336,7 +336,7 @@ function App() {
           </section>
           <section className="featured wrap">
             <div className="featureImg">
-               <img src="/public/Mercado Libre.jpg"/>
+               <img src="/Mercado Libre.jpg"/>
               <small>FEATURED CULTIVATION GUIDE</small>
             </div>
             <div>
@@ -395,7 +395,7 @@ function App() {
           </div>
           <section className="detailTop wrap">
             <div className="detailImg">
-              <img src="/public/Mercado Libre.jpg"/>
+              <img src="/Mercado Libre.jpg"/>
               <small>FRUIT PLANT · CULTIVATION GUIDE</small>
             </div>
             <div className="detailSummary">
