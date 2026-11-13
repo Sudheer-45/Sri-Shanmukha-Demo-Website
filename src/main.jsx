@@ -901,7 +901,7 @@ function App() {
               Plant selection, growing knowledge and support for your next
               plantation.
             </p>
-            <small>⌖ Vijayawada, Andhra Pradesh</small>
+            <small>⌖ Address: 43_106/1_56c, Thota vaari street, Nandamuri Nagar, Singh Nagar 520015, Vijayawada</small>
           </div>
           <div>
             <b>EXPLORE</b>
@@ -931,134 +931,230 @@ function App() {
           <span>Designed around the farmer's growing journey.</span>
         </div>
       </footer>
-      {modal && (
-        <div className="overlay" onClick={() => B(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <button className="close" onClick={() => B(false)}>
-              <X />
+      
+{modal && (
+  <div className="overlay" onClick={() => B(false)}>
+    <div className="modal" onClick={(e) => e.stopPropagation()}>
+      <button
+        className="close"
+        type="button"
+        onClick={() => B(false)}
+        aria-label="Close enquiry form"
+      >
+        <X />
+      </button>
+
+      {!sent ? (
+        <>
+          <label>— &nbsp; BULK PLANT ENQUIRY</label>
+
+          <h2>
+            Tell us what you <em>need.</em>
+          </h2>
+
+          <p>
+            Share your requirements and delivery location.
+            Our nursery team will review availability and
+            prepare a suitable quotation.
+          </p>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+
+              const formData = new FormData(e.currentTarget);
+
+              const customerName =
+                formData.get("customerName")?.toString().trim() || "";
+
+              const mobile =
+                formData.get("mobile")?.toString().trim() || "";
+
+              const plant =
+                formData.get("plant")?.toString().trim() ||
+                "Not specified";
+
+              const quantity =
+                formData.get("quantity")?.toString().trim() ||
+                "Not specified";
+
+              const budget =
+                formData.get("budget")?.toString().trim() ||
+                "Not specified";
+
+              const location =
+                formData.get("location")?.toString().trim() || "";
+
+              const requirements =
+                formData.get("requirements")?.toString().trim() ||
+                "None";
+
+              const message = `
+              Hello Sri Shanmukha Bio Plantic,
+
+              I would like to request a bulk quotation.
+
+              Customer Details:
+              Name: ${customerName}
+              Mobile: ${mobile}
+
+              Plant Requirements:
+              Plant: ${plant}
+              Quantity: ${quantity}
+              Expected Budget: ${budget === "Not specified" ? budget : "₹" + budget}
+
+              Delivery Location: ${location}
+
+              Additional Requirements:
+              ${requirements}
+
+              Please share the available varieties, pricing,
+              and delivery details.
+
+              Thank you.
+              `.trim();
+
+              const whatsappUrl =
+                `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+              const whatsappWindow = window.open(
+                whatsappUrl,
+                "_blank"
+              );
+
+              if (whatsappWindow) {
+                S(true);
+              } else {
+                alert(
+                  "Please allow pop-ups to continue to WhatsApp."
+                );
+              }
+            }}
+          >
+            <label>
+              Your name
+              <input
+                name="customerName"
+                type="text"
+                required
+                placeholder="Enter your name"
+              />
+            </label>
+
+            <div className="two">
+              <label>
+                Mobile number
+                <input
+                  name="mobile"
+                  type="tel"
+                  required
+                  pattern="[0-9+ ]{10,15}"
+                  placeholder="Mobile number"
+                />
+              </label>
+
+              <label>
+                Plant
+                <select name="plant" required>
+                  <option value="Hybrid Coconut">
+                    Hybrid Coconut
+                  </option>
+                  <option value="Other plant">
+                    Other plant
+                  </option>
+                </select>
+              </label>
+            </div>
+
+            <div className="two">
+              <label>
+                Required quantity
+                <input
+                  name="quantity"
+                  type="number"
+                  min="1"
+                  value={qty}
+                  onChange={(e) => Y(e.target.value)}
+                  required
+                />
+              </label>
+
+              <label>
+                Delivery location
+                <input
+                  name="location"
+                  type="text"
+                  defaultValue="Vijayawada"
+                  required
+                  placeholder="Village / District"
+                />
+              </label>
+            </div>
+
+            <label>
+              Expected budget (₹)
+              <input
+                name="budget"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="Enter your approximate budget (optional)"
+              />
+              <small>
+                Optional. This helps us understand your
+                requirements and suggest suitable options.
+              </small>
+            </label>
+
+            <label>
+              Additional requirements
+              <textarea
+                name="requirements"
+                rows="4"
+                placeholder="Tell us about your land, plant variety or delivery needs."
+              />
+            </label>
+
+            <button className="darkBtn submit" type="submit">
+              Continue to WhatsApp <MessageCircle />
             </button>
-            {!sent ? (
-              <>
-                <label>— &nbsp; BULK PLANT ENQUIRY</label>
-                <h2>
-                  Tell us what you <em>need.</em>
-                </h2>
-                <p>
-                  Share your requirement and delivery location. The nursery can
-                  review availability and prepare a quotation.
-                </p>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const formData = new FormData(e.currentTarget);
-                    const customerName =
-                      formData.get("customerName")?.toString().trim() || "";
-                    const mobile =
-                      formData.get("mobile")?.toString().trim() || "";
-                    const plant =
-                      formData.get("plant")?.toString().trim() ||
-                      "Not specified";
-                    const quantity =
-                      formData.get("quantity")?.toString().trim() ||
-                      "Not specified";
-                    const location =
-                      formData.get("location")?.toString().trim() || "";
-                    const requirements =
-                      formData.get("requirements")?.toString().trim() || "None";
-                    const message = `Hello Sri Shanmukha Bio Plantic, I would like to request a bulk quotation.\n\nName: ${customerName}\nMobile: ${mobile}\nPlant: ${plant}\nQuantity: ${quantity}\nDelivery location: ${location}\nAdditional requirements: ${requirements}\n\nPlease share the price and availability. Thank you.`;
-                    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-                    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-                    S(true);
-                  }}
-                >
-                  <label>
-                    Your name
-                    <input
-                      name="customerName"
-                      required
-                      placeholder="Enter your name"
-                    />
-                  </label>
-                  <div className="two">
-                    <label>
-                      Mobile number
-                      <input
-                        name="mobile"
-                        required
-                        pattern="[0-9+ ]{10,15}"
-                        placeholder="Mobile number"
-                      />
-                    </label>
-                    <label>
-                      Plant
-                      <select name="plant">
-                        <option>Hybrid Coconut</option>
-                        <option>Other plant</option>
-                      </select>
-                    </label>
-                  </div>
-                  <div className="two">
-                    <label>
-                      Quantity
-                      <input
-                        name="quantity"
-                        type="number"
-                        min="1"
-                        value={qty}
-                        onChange={(e) => Y(e.target.value)}
-                        required
-                      />
-                    </label>
-                    <label>
-                      Delivery location
-                      <input
-                        name="location"
-                        defaultValue="Vijayawada"
-                        required
-                      />
-                    </label>
-                  </div>
-                  <label>
-                    Additional requirements
-                    <textarea
-                      name="requirements"
-                      placeholder="Tell us about your land or delivery needs."
-                    />
-                  </label>
-                  <button className="darkBtn submit" type="submit">
-                    Continue to WhatsApp <MessageCircle />
-                  </button>
-                  <small>
-                    WhatsApp will open with your enquiry filled in. Review it
-                    and press Send to contact the nursery.
-                  </small>
-                </form>
-              </>
-            ) : (
-              <div className="success">
-                <Check />
-                <h2>
-                  WhatsApp <em>opened.</em>
-                </h2>
-                <p>
-                  Your enquiry details have been added to a WhatsApp message
-                  addressed to the nursery. Please review the message in
-                  WhatsApp and press Send to submit your enquiry.
-                </p>
-                <button
-                  className="darkBtn"
-                  onClick={() => {
-                    B(false);
-                    S(false);
-                  }}
-                >
-                  Done
-                </button>
-              </div>
-            )}
-          </div>
+
+            <small>
+              Your enquiry details will be added to a WhatsApp
+              message. Review the message and press Send to
+              contact the nursery.
+            </small>
+          </form>
+        </>
+      ) : (
+        <div className="success">
+          <Check />
+
+          <h2>
+            WhatsApp <em>opened.</em>
+          </h2>
+
+          <p>
+            Your enquiry details have been prepared in WhatsApp.
+            Please review the message and press Send to submit
+            your request to the nursery.
+          </p>
+
+          <button
+            className="darkBtn"
+            onClick={() => {
+              B(false);
+              S(false);
+            }}
+          >
+            Done
+          </button>
         </div>
       )}
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
