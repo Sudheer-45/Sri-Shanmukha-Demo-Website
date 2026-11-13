@@ -423,7 +423,7 @@ function App() {
                 </div>
                 <div>
                   <small>PRICE</small>
-                  <b>Request current price</b>
+                  <b>₹15 per piece</b>
                 </div>
               </div>
               <div className="plantActions">
